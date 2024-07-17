@@ -1,0 +1,18 @@
+CREATE PROCEDURE GetActiveEmployees
+AS BEGIN SET NOCOUNT ON;
+SELECT EmployeeID,FirstName,LastName,DateOfBirth,HireDate,Email,PhoneNumber,DepartmentID,Salary,IsActive,CreatedAt,UpdatedAt
+FROM Employees WHERE IsActive = 1 ORDER BY LastName, FirstName;
+END;
+ 
+CREATE PROCEDURE GetEmployeesByDepartmentAndSalary
+    @DepartmentID INT,
+    @MinSalary DECIMAL(18, 2),
+    @MaxSalary DECIMAL(18, 2)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT EmployeeID,FirstName,LastName,DateOfBirth,HireDate,Email,PhoneNumber,DepartmentID,Salary,IsActive,CreatedAt,UpdatedAt
+    FROM Employees
+    WHERE DepartmentID = @DepartmentID AND Salary BETWEEN @MinSalary AND @MaxSalaryAND IsActive = 1
+    ORDER BY Salary DESC,LastName,FirstName;
+END;
